@@ -1,0 +1,44 @@
+/* home.css */
+.container-fluid {
+    padding: 1px;
+    background-image: url('../media/home-bg.jpg');
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    min-height: 100vh;
+    padding: 1px;
+}
+.home-top {
+    text-align: center;
+    margin: 90px 0px 50px 0px;
+    color: rgba(255, 255, 255, 0.938);
+}
+
+.home-top h1 {
+    font-size: 62px;
+    font-weight: bold;
+    letter-spacing: 3px;
+}
+
+.home-top h3 {
+    font-size: 32px;
+    letter-spacing: 1px;
+    color: rgba(255, 255, 255, 0.781);
+    margin-bottom: 5px;
+}
+
+.question-answer-box {
+    background: #e8e9eb10;
+    border-radius: 10px;
+    width: 50%;
+    margin: 0px auto;
+}
+.question-answer-box h4{
+    color: rgba(255, 255, 255, 0.849);
+    font-weight: 700;
+}
+img {
+    border-radius: 8px;
+    width: 120px;
+    height: 120px;
+}
