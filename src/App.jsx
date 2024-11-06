@@ -1,6 +1,6 @@
 import Signup from './Pages/Authentiction/Signup';
 import Login from './Pages/Authentiction/Login';
-import { HashRouter as Router, Route, Routes, Navigate, useLocation } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, Navigate, useLocation } from 'react-router-dom';
 import Navbar from './component/Navbar';
 import './assets/style/navbar.css';
 import Home from './Pages/Home/Home';
