@@ -51,7 +51,7 @@ function Signup() {
                 }
             });
     
-            if (response.status === 201) {
+            if (response) {
                 // alert('User created successfully');
                 const token = response.data.token;
                 console.log("Data for Token is", response.data);
