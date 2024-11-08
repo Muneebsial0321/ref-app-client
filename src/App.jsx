@@ -27,7 +27,7 @@ function Content() {
   return (
     <>
       {/* Show Navbar only when the path is not /login or /signup */}
-      {location.pathname !== '/login' && location.pathname !== '/signup' && location.pathname !== '/block' && <Navbar />}
+      {location.pathname !== '/' && location.pathname !== '/signup' && location.pathname !== '/forget' && location.pathname !== '/reset' && location.pathname !== '/block' && <Navbar />}
 
       <Routes>
         {/* Public Routes */}
