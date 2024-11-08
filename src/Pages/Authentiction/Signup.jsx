@@ -13,8 +13,9 @@ import img2 from '../../assets/media/signup2.jpg'
 import img3 from '../../assets/media/signup3.jpg'
 import axios from 'axios';
 import { GlobalContext } from '../../context/Global';
-import {BACK_URL} from '../../../ENV'
-
+import { BACK_URL } from '../../../ENV'
+import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer, toast } from 'react-toastify';
 
 
 function Signup() {
@@ -40,30 +41,35 @@ function Signup() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         if (formData.password !== formData.confirmpassword) {
-            alert("Passwords do not match!");
+            toast.error("Passwords do not match!");
             return;
         }
-    
+
         try {
-            const response = await axios.post(`${BACK_URL}/api/signup`, formData, {
+            const response = await axios.post('http://localhost:3001/api/signup', formData, {
                 headers: {
                     'Content-Type': 'application/json',
                 }
             });
-    
-            if (response) {
-                // alert('User created successfully');
-                const token = response.data.token;
-                console.log("Data for Token is", response.data);
-                localStorage.setItem('authToken', token);
-                global.setGlobal(response.data)
+
+            if (response.status === 201) {
+                toast.success("User Created Successfully", {
+                    position: "top-center"
+                });
                 navigate('/home');
+            }
+            else {
+                toast.error("User Alread Created!", {
+                    position: "top-center"
+                });
             }
         } catch (err) {
             console.log(err)
+            toast.error("Server Error!", {
+                position: "top-center"
+            });
         }
     };
-    
 
 
     return (
@@ -96,21 +102,22 @@ function Signup() {
                                 <input type="text" name="lname" id="" value={formData.lname} placeholder='Last Name' onChange={handleInputChange} />
                             </div>
                             <div className="signup-email">
-                                <input type="text" name="email" id="" value={formData.email} placeholder='Email' onChange={handleInputChange} />
+                                <input type="email" name="email" id="" value={formData.email} placeholder='Email' onChange={handleInputChange} />
                             </div>
                             <div className="signup-password">
-                                <input type="text" name="password" id="" value={formData.password} placeholder='Enter  Password' onChange={handleInputChange} />
+                                <input type="password" name="password" id="" value={formData.password} placeholder='Enter  Password' onChange={handleInputChange} />
                             </div>
                             <div className="signup-password">
-                                <input type="text" name="confirmpassword" id="" value={formData.confirmpassword} placeholder='Confirm  Password' onChange={handleInputChange} />
+                                <input type="password" name="confirmpassword" id="" value={formData.confirmpassword} placeholder='Confirm  Password' onChange={handleInputChange} />
                             </div>
                             <div className="signup-refrel">
-                                <input type="text" name="referral" id="" value={formData.referral} placeholder='Refrerral Code (Optional)' onChange={handleInputChange} />
+                                <input type="text" name="referal" id="" value={formData.referal} placeholder='Refrerral Code (Optional)' onChange={handleInputChange} />
                             </div>
                             <button type='submit'>Create Account</button>
                         </form>
-                        <p>if you already have an account &nbsp;&nbsp;&nbsp;<Link to='/login'>login</Link></p>
+                        <p>if you already have an account &nbsp;&nbsp;&nbsp;<Link to='/'>login</Link></p>
                     </div>
+                    <ToastContainer />
                 </div>
             </div>
         </>
