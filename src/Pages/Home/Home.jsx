@@ -37,9 +37,9 @@ const getPoints=async()=>{
 
 useEffect(()=>{
 
-  if (!globalData || !globalData.global) {
-    navigate('/');
-  }
+  // if (!globalData || !globalData.global) {
+  //   navigate('/');
+  // }
   fetchReferrals()
   getPoints()
 },[])
@@ -80,24 +80,6 @@ useEffect(()=>{
             </div>
           </div>
         </div>
-        {/* <div className="question-answer-box p-3 shadow-sm mb-4">
-          <div className="d-flex align-items-start">
-            <img src={friendReward} alt="Invite" className="img-fluid me-3" />
-            <div>
-              <h4>What Will My Friend Get?</h4>
-              <p>They will also get ₹100 for every referral.</p>
-            </div>
-          </div>
-        </div>
-        <div className="question-answer-box p-3 shadow-sm mb-4">
-          <div className="d-flex align-items-start">
-            <img src={earn} alt="Invite" className="img-fluid me-3" />
-            <div>
-              <h4>When Does My Friend Earn?</h4>
-              <p>When they successfully refer someone.</p>
-            </div>
-          </div>
-        </div> */}
       </div>
     </div>
   );

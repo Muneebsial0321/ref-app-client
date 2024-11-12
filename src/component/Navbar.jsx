@@ -40,7 +40,7 @@ function Navbar() {
 
                 </div>
 
-                <button className={`${state ? "bg-white" : "bg-black"} md:hidden`} onClick={() => setstate((e) => !e)}>M</button>
+                {/* <button className={`${state ? "bg-white" : "bg-black"} md:hidden`} onClick={() => setstate((e) => !e)}>M</button> */}
             </nav>
         </>
     )

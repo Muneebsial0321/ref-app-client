@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import '../../assets/style/signup.css'
 import { Link, useNavigate } from 'react-router-dom';
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -19,6 +19,7 @@ import { ToastContainer, toast } from 'react-toastify';
 
 
 function Signup() {
+    const [offer, setOffer] = useState([])
     const global = useContext(GlobalContext)
 
     const navigate = useNavigate()
@@ -41,7 +42,9 @@ function Signup() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         if (formData.password !== formData.confirmpassword) {
-            toast.error("Passwords do not match!");
+            toast.error("Passwords do not match!", {
+                position: "top-center"
+            });
             return;
         }
 
@@ -56,7 +59,9 @@ function Signup() {
                 toast.success("User Created Successfully", {
                     position: "top-center"
                 });
-                navigate('/home');
+                setInterval(() => {
+                    navigate('/home');
+                }, 1500)
             }
             else {
                 toast.error("User Alread Created!", {
@@ -71,6 +76,22 @@ function Signup() {
         }
     };
 
+    // get Offer 
+    useEffect(() => {
+        const getOffer = async () => {
+            try {
+                const response = await axios.get('http://localhost:3001/api/offer')
+                const result = response.data
+                setOffer(result)
+
+            }
+            catch (err) {
+                console.log("Offer error is that ", err)
+            }
+        }
+        getOffer()
+    }, [])
+    console.log('Offer response is that ', offer)
 
     return (
         <>
@@ -89,9 +110,11 @@ function Signup() {
                                 disableOnInteraction: false,
                             }}
                         >
-                            <SwiperSlide><img src={img1} alt="" width={"100%"} /></SwiperSlide>
-                            <SwiperSlide><img src={img2} alt="" width={"100%"} /></SwiperSlide>
-                            <SwiperSlide><img src={img3} alt="" width={"100%"} /></SwiperSlide>
+                            {
+                                offer.map((offer, i) => {
+                                    return <SwiperSlide key={i}><img src={`http://localhost:3001${offer.imageUrl}`} alt="Loading Error" width={"100%"} /></SwiperSlide>
+                                })
+                            }
                         </Swiper>
                     </div>
                     <div className="signup-form-right">
@@ -115,7 +138,7 @@ function Signup() {
                             </div>
                             <button type='submit'>Create Account</button>
                         </form>
-                        <p>if you already have an account &nbsp;&nbsp;&nbsp;<Link to='/'>login</Link></p>
+                        <p>if you already have an account &nbsp;&nbsp;&nbsp;<Link to='/login'>login</Link></p>
                     </div>
                     <ToastContainer />
                 </div>

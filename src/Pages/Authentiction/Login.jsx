@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import '../../assets/style/signup.css'
 import { Link, useNavigate } from 'react-router-dom';
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -15,6 +15,7 @@ import { ToastContainer, toast } from 'react-toastify';
 
 
 function Login() {
+    const [offer, setOffer] = useState([])
     const global = useContext(GlobalContext)
     const navigate = useNavigate()
     console.log(global)
@@ -56,14 +57,18 @@ function Login() {
                 global.setGlobal(response.data)
                 // alert('Login Successfully');
                 if (response.data.User.isBlocked === "true") {
-                    toast.info("You have permanent Blocked on this site!");
-                    navigate('/block')
+                    toast.info("You have temporary Blocked on this site!");
+                    setInterval(() => {
+                        navigate('/block')
+                    }, 1500)
                 }
                 else {
                     toast.success("Login successful!", {
                         position: "top-center"
                     });
-                    navigate('/home');
+                    setInterval(() => {
+                        navigate('/home');
+                    }, 1500)
                 }
             } else {
                 toast.error("Invalid User!", {
@@ -78,7 +83,22 @@ function Login() {
         }
     };
 
+    // Get Offer 
+    useEffect(() => {
+        const getOffer = async () => {
+            try {
+                const response = await axios.get('http://localhost:3001/api/offer')
+                const result = response.data
+                setOffer(result)
 
+            }
+            catch (err) {
+                console.log("Offer error is that ", err)
+            }
+        }
+        getOffer()
+    }, [])
+    console.log('Offer response is that ', offer)
     return (
         <>
             <div className="signup-container relative top-[0rem]">
@@ -97,9 +117,11 @@ function Login() {
                                 disableOnInteraction: false,
                             }}
                         >
-                            <SwiperSlide><img src={'signup.jpg'} alt="" width={"100%"} /></SwiperSlide>
-                            <SwiperSlide><img src={'signup2.jpg'} alt="" width={"100%"} /></SwiperSlide>
-                            <SwiperSlide><img src={'signup3.jpg'} alt="" width={"100%"} /></SwiperSlide>
+                           {
+                                offer.map((offer, i) => {
+                                    return <SwiperSlide key={i}><img src={`http://localhost:3001${offer.imageUrl}`} alt="Loading Error" width={"100%"} /></SwiperSlide>
+                                })
+                            }
                         </Swiper>
                     </div>
                     <div className="-signup-form-right login-right">
@@ -110,12 +132,12 @@ function Login() {
                             <div className="signup-email">
                                 <input
                                     className="bg-[#3B364C] w-[19rem] p-[6px] my-[10px] rounded-[6px] border-[#6E54B5] border-solid border-[1px]"
-                                    type="email" name="email" id="" value={formData.email} placeholder='Email' onChange={handleInputChange} />
+                                    name="email" id="loginEmail" value={formData.email} placeholder='Email' onChange={handleInputChange} />
                             </div>
                             <div className="signup-password">
                                 <input type="password"
                                     className="bg-[#3B364C] w-[19rem] p-[6px] my-[10px] rounded-[6px] border-[#6E54B5] border-solid  border-[1px] "
-                                    name="password" id="" value={formData.password} placeholder='Enter Password' onChange={handleInputChange} />
+                                    name="password" id="loginPassword" value={formData.password} placeholder='Enter Password' onChange={handleInputChange} />
                             </div>
                             <button
                                 className='bg-[#6E54B5] my-[10px] w-[19rem] rounded-[6px] border-none'

@@ -23,20 +23,20 @@ function App() {
 
 function Content() {
   const location = useLocation();
+  const token = localStorage.getItem('authToken')
+  // console.log("Token of ref is " , token)
 
   return (
     <>
-      {/* Show Navbar only when the path is not /login or /signup */}
       {location.pathname !== '/' && location.pathname !== '/signup' && location.pathname !== '/forget' && location.pathname !== '/reset' && location.pathname !== '/block' && <Navbar />}
-
       <Routes>
-        {/* Public Routes */}
+        {/* Private Routes */}
         <Route path='/' element={<Login />} />
         <Route path='/signup' element={<Signup />} />
         <Route path='/forget' element={<ForgetPass/>} />
         <Route path='/reset' element={<ResetPassword/>} />
 
-        {/* Private Routes */}
+        {/* Public Routes */}
         <Route path='/home' element={<Home />} />
         <Route path='/ledger' element={<Ledger />} />
         <Route path='/wallet' element={<Wallet />} />
