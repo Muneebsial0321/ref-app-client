@@ -7,7 +7,7 @@ import {BACK_URL} from '../../../ENV'
 import { useNavigate } from 'react-router-dom';
 
 const Home = () => {
-  const navigate=useNavigate()
+  // const navigate=useNavigate()
   const [refferalPoints, setMyRefferals] = useState(0)
   const [points, setPoints] = useState(0);
 

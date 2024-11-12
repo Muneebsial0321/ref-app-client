@@ -61,7 +61,7 @@ function Signup() {
                 });
                 setInterval(() => {
                     navigate('/home');
-                }, 1500)
+                }, 5000)
             }
             else {
                 toast.error("User Alread Created!", {
