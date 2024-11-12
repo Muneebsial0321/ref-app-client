@@ -33,8 +33,6 @@ const getPoints=async()=>{
   setPoints(data)
   
 }
-
-
 useEffect(()=>{
 
   // if (!globalData || !globalData.global) {
